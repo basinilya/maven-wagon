@@ -19,6 +19,8 @@ package org.apache.maven.wagon.providers.scm;
  * under the License.
  */
 
+import org.apache.maven.scm.CommandParameter;
+import org.apache.maven.scm.CommandParameters;
 import org.apache.maven.scm.ScmBranch;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFile;
@@ -490,9 +492,16 @@ public class ScmWagon
                 }
             }
             scmRepository = getScmRepository( repoUrl );
+
+            CommandParameters parameters = mkBinaryFlag();
+            ScmVersion ver = makeScmVersion();
+            // TODO: AbstractScmProvider 6f7dd0c ignores checkOut() parameter "version"
+            parameters.setScmVersion( CommandParameter.SCM_VERSION, ver );
+            parameters.setString( CommandParameter.RECURSIVE, Boolean.toString( false ) );
+
             CheckOutScmResult ret =
                 scmProvider.checkOut( scmRepository, new ScmFileSet( new File( checkoutDirectory, "" ) ),
-                                      makeScmVersion(), false );
+                                      ver, parameters );
 
             checkScmResult( ret );
         }
@@ -556,7 +565,8 @@ public class ScmWagon
 
         if ( scmFilePath.length() != 0 )
         {
-            AddScmResult result = scmProvider.add( scmRepository, new ScmFileSet( basedir, new File( scmFilePath ) ) );
+            AddScmResult result =
+                scmProvider.add( scmRepository, new ScmFileSet( basedir, new File( scmFilePath ) ), mkBinaryFlag() );
 
             /*
              * TODO dirty fix to work around files with property svn:eol-style=native if a file has that property, first
@@ -565,7 +575,9 @@ public class ScmWagon
              */
             if ( !result.isSuccess() )
             {
-                result = scmProvider.add( scmRepository, new ScmFileSet( basedir, new File( scmFilePath ) ) );
+                result =
+                    scmProvider.add( scmRepository, new ScmFileSet( basedir, new File( scmFilePath ) ),
+                                     mkBinaryFlag() );
             }
 
             addedFiles = result.getAddedFiles().size();
@@ -587,6 +599,13 @@ public class ScmWagon
         }
 
         return addedFiles;
+    }
+
+    private CommandParameters mkBinaryFlag() throws ScmException
+    {
+        CommandParameters parameters = new CommandParameters();
+        parameters.setString( CommandParameter.BINARY, Boolean.toString( true ) );
+        return parameters;
     }
 
     /**
