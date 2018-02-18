@@ -444,7 +444,10 @@ public class ScmWagon
                              Resource resource )
         throws TransferFailedException
     {
-        checkoutDirectory = createCheckoutDirectory();
+        if ( checkoutDirectory == null )
+        {
+            checkoutDirectory = createCheckoutDirectory();
+        }
 
         Stack<String> stack = new Stack<String>();
 

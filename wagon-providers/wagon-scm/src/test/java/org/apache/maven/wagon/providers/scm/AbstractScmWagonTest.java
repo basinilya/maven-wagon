@@ -78,6 +78,17 @@ public abstract class AbstractScmWagonTest
         }
     }
 
+    // @Override
+    protected void tearDown1()
+        throws Exception
+    {
+        if ( wagon != null )
+        {
+            wagon.disconnect();
+        }
+        super.tearDown();
+    }
+
     /**
      * Allows overriding the {@link ScmProvider} injected by default in the {@link ScmWagon}.
      * Useful to force the implementation to use for a particular SCM type.

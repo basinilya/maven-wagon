@@ -213,6 +213,12 @@ public abstract class WagonTestCase
     }
 
     protected Wagon getWagon()
+            throws Exception
+    {
+        return getWagonReal();
+    }
+
+    protected Wagon getWagonReal()
         throws Exception
     {
         Wagon wagon = (Wagon) lookup( Wagon.ROLE, getProtocol() );
@@ -235,6 +241,54 @@ public abstract class WagonTestCase
     //
     // ----------------------------------------------------------------------
 
+    public void testBroaden()
+        throws Exception
+    {
+        setupRepositories();
+
+        setupWagonTestingFixtures();
+
+        
+        Wagon wagon = getWagon();
+        // Wagon wagon2 = getWagonReal();
+        
+        sourceFile = new File( FileTestUtils.getTestOutputDir(), "broaden-base" );
+
+        FileUtils.deleteDirectory( sourceFile );
+
+        writeTestFile( "test-resource.txt" );
+        writeTestFile( "broaden/test-resource.txt" );
+        writeTestFile( "broaden/broaden/test-resource.txt" );
+
+        connectWagon( wagon );
+        
+        wagon.putDirectory( sourceFile, "broaden-base" );
+
+        // cleanup
+        disconnectWagon( wagon );
+
+        // reconnect
+        connectWagon( wagon );
+
+        // prepared...
+        
+        destFile = FileTestUtils.createUniqueFile( getName(), getName() );
+
+        destFile.deleteOnExit();
+
+        // wagon.get("broaden/lv1/test-resource.txt", destFile);
+        // wagon.get("broaden/lv1/lv2/test-resource.txt", destFile);
+        // wagon.get("broaden/test-resource.txt", destFile);
+
+        wagon.put( new File( sourceFile, "broaden/broaden/test-resource.txt" ),
+                "broaden-base/broaden/broaden/test-resource.txt" );
+
+        //sourceFile = new File(sourceFile, "broaden");
+        //wagon.putDirectory( sourceFile, "broaden-base/broaden" );
+
+        //wagon.get("broaden/test-resource.txt", destFile);
+    }
+    
     public void testWagon()
         throws Exception
     {
