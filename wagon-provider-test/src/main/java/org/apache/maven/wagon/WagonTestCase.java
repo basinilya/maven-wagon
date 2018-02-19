@@ -233,16 +233,13 @@ public abstract class WagonTestCase
     public void testWagon()
         throws Exception
     {
-        if ( supportsGetIfNewer() )
-        {
-            setupRepositories();
+        setupRepositories();
 
-            setupWagonTestingFixtures();
+        setupWagonTestingFixtures();
 
-            fileRoundTripTesting();
+        fileRoundTripTesting();
 
-            tearDownWagonTestingFixtures();
-        }
+        tearDownWagonTestingFixtures();
     }
 
     public void testWagonGetIfNewerIsNewer()
