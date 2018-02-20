@@ -37,28 +37,30 @@ public class ScmCvsExeWagonTest
         return new CvsExeScmProvider();
     }
 
-    public void testFailedGet()
+    @Override
+    public void testWagonGetFileList()
         throws Exception
     {
-        // Not ready yet
+        // cvs rls is rare
     }
 
-    public void testWagon()
+    @Override
+    public void testWagonResourceExists()
         throws Exception
     {
-        // Not ready yet
+        // cvs rls is rare
     }
 
-    public void testWagonPutDirectory()
+    @Override
+    public void testWagonResourceNotExists()
         throws Exception
     {
-        // Not ready yet
+        // cvs rls is rare
     }
 
-    public void testWagonPutDirectoryWhenDirectoryAlreadyExists()
-        throws Exception
+    @Override
+    protected boolean supportsGetIfNewer()
     {
-        // Not ready yet
+        return false;
     }
-
 }
