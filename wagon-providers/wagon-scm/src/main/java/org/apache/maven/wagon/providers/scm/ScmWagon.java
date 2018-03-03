@@ -23,7 +23,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.apache.maven.scm.CommandParameter;
@@ -818,6 +820,44 @@ public class ScmWagon
         String reservedScmFile = scmProvider.getScmSpecificFilename();
         File pathToCheck = reservedScmFile == null ? checkoutDirectory : new File( checkoutDirectory, reservedScmFile );
         return pathToCheck.exists();
+    }
+
+    /**
+     * @return map of files by resource name
+     */
+    public Map<String, File> listAllFilesOffline()
+    {
+        ScmProvider scmProvider;
+        try
+        {
+            scmProvider = getScmProvider( getScmRepository( getRepository().getUrl() ).getProvider() );
+        }
+        catch ( Exception e )
+        {
+            throw new RuntimeException( e );
+        }
+        String reservedScmFile = scmProvider.getScmSpecificFilename();
+        HashMap<String, File> res = new HashMap<String, File>();
+        fillOfflineFiles( res, reservedScmFile, partCOSubdir, checkoutDirectory );
+        return res;
+    }
+
+    private void fillOfflineFiles( HashMap<String, File> res, String reservedScmFile, String resourcePref, File dir )
+    {
+        for ( File f : dir.listFiles() )
+        {
+            String name = f.getName();
+            if ( !name.equals( reservedScmFile ) )
+            {
+                String resourceName = resourcePref + name;
+                if ( f.isDirectory() )
+                {
+                    resourceName += "/";
+                    fillOfflineFiles( res, reservedScmFile, resourceName, f );
+                }
+                res.put( resourceName, f );
+            }
+        }
     }
 
     /**
