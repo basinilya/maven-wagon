@@ -26,7 +26,12 @@ import org.apache.maven.wagon.Wagon;
 import org.apache.maven.wagon.authentication.AuthenticationException;
 import org.apache.maven.wagon.repository.Repository;
 import org.apache.maven.wagon.resource.Resource;
+import org.junit.Test;
 
+// CHECKSTYLE_OFF: AvoidStarImport
+import static org.junit.Assert.*;
+
+// CHECKSTYLE_ON: AvoidStarImport
 import java.io.File;
 import java.io.IOException;
 
@@ -63,6 +68,7 @@ public class FileWagonTest
      * @throws ConnectionException
      * @throws AuthenticationException
      */
+    @Test
     public void testNullFileWagon() throws ConnectionException, AuthenticationException
     {
         Wagon wagon = new FileWagon();
@@ -78,6 +84,7 @@ public class FileWagonTest
         return new File( repository.getBasedir(), resource.getName() ).lastModified();
     }
 
+    @Test
     public void testResourceExists()
         throws Exception
     {

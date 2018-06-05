@@ -60,10 +60,11 @@ public abstract class AbstractScmWagonTest
 
     private String providerClassName;
 
-    protected void setUp()
+    @Override
+    public void beforeTest()
         throws Exception
     {
-        super.setUp();
+        super.beforeTest();
 
         FileUtils.deleteDirectory( getCheckoutDirectory() );
 

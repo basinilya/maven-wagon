@@ -15,10 +15,8 @@ package org.apache.maven.wagon.providers.webdav;
  * the License.
  */
 
-import it.could.webdav.DAVServlet;
 import org.apache.http.HttpException;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.maven.wagon.ResourceDoesNotExistException;
 import org.apache.maven.wagon.StreamingWagon;
@@ -32,6 +30,13 @@ import org.apache.maven.wagon.shared.http.HttpMethodConfiguration;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.junit.Test;
+
+// CHECKSTYLE_OFF: AvoidStarImport
+import static org.junit.Assert.*;
+
+// CHECKSTYLE_ON: AvoidStarImport
+import it.could.webdav.DAVServlet;
 
 import java.io.File;
 import java.io.IOException;
@@ -107,6 +112,7 @@ public class WebDavWagonTest
     /**
      * Tests the maven 2.0.x way to define a webdav URL without SSL.
      */
+    @Test
     public void testGetURLDavHttp()
     {
         assertURL( "dav:http://localhost:" + getTestRepositoryPort() + "/dav/",
@@ -116,6 +122,7 @@ public class WebDavWagonTest
     /**
      * Tests the maven 2.0.x way to define a webdav URL with SSL.
      */
+    @Test
     public void testGetURLDavHttps()
     {
         assertURL( "dav:https://localhost:" + getTestRepositoryPort() + "/dav/",
@@ -125,6 +132,7 @@ public class WebDavWagonTest
     /**
      * Tests the URI spec way of defining a webdav URL without SSL.
      */
+    @Test
     public void testGetURLDavUri()
     {
         assertURL( "dav://localhost:" + getTestRepositoryPort() + "/dav/",
@@ -134,6 +142,7 @@ public class WebDavWagonTest
     /**
      * Tests the URI spec way of defining a webdav URL with SSL.
      */
+    @Test
     public void testGetURLDavUriWithSsl()
     {
         assertURL( "davs://localhost:" + getTestRepositoryPort() + "/dav/",
@@ -143,6 +152,7 @@ public class WebDavWagonTest
     /**
      * Tests the URI spec way of defining a webdav URL without SSL.
      */
+    @Test
     public void testGetURLDavPlusHttp()
     {
         assertURL( "dav+https://localhost:" + getTestRepositoryPort() + "/dav/",
@@ -152,12 +162,14 @@ public class WebDavWagonTest
     /**
      * Tests the URI spec way of defining a webdav URL with SSL.
      */
+    @Test
     public void testGetURLDavPlusHttps()
     {
         assertURL( "dav+https://localhost:" + getTestRepositoryPort() + "/dav/",
                    "https://localhost:" + getTestRepositoryPort() + "/dav/" );
     }
 
+    @Test
     public void testMkdirs()
         throws Exception
     {
@@ -207,6 +219,7 @@ public class WebDavWagonTest
         }
     }
 
+    @Test
     public void testMkdirsWithNoBasedir()
         throws Exception
     {
@@ -253,6 +266,7 @@ public class WebDavWagonTest
      *
      * @throws Exception
      */
+    @Test
     public void testWagonWebDavGetFileList()
         throws Exception
     {
@@ -323,6 +337,7 @@ public class WebDavWagonTest
     }
 
 
+    @Test
     public void testWagonFailsOnPutFailureByDefault()
         throws Exception
     {
@@ -386,6 +401,7 @@ public class WebDavWagonTest
         }
     }
 
+    @Test
     public void testWagonContinuesOnPutFailureIfPropertySet()
         throws Exception
     {

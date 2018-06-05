@@ -35,8 +35,12 @@ import org.apache.maven.wagon.authentication.AuthenticationException;
 import org.apache.maven.wagon.authentication.AuthenticationInfo;
 import org.apache.maven.wagon.repository.Repository;
 import org.apache.maven.wagon.resource.Resource;
+import org.junit.Test;
 
+// CHECKSTYLE_OFF: AvoidStarImport
+import static org.junit.Assert.*;
 
+// CHECKSTYLE_ON: AvoidStarImport
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -152,6 +156,7 @@ public class FtpWagonTest
         return getTestFile( "target/test-output/local-repository" );
     }
 
+    @Test
     public void testNoPassword()
         throws Exception
     {
@@ -168,6 +173,7 @@ public class FtpWagonTest
         }
     }
 
+    @Test
     public void testDefaultUserName()
         throws Exception
     {
@@ -187,6 +193,7 @@ public class FtpWagonTest
     /**
      * This is a unit test to show WAGON-265
      */
+    @Test
     public void testPutDirectoryCreation()
         throws Exception
     {

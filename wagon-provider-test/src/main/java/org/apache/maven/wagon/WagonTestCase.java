@@ -29,16 +29,19 @@ import org.apache.maven.wagon.observers.Debug;
 import org.apache.maven.wagon.repository.Repository;
 import org.apache.maven.wagon.repository.RepositoryPermissions;
 import org.apache.maven.wagon.resource.Resource;
-import org.codehaus.plexus.PlexusTestCase;
+import org.codehaus.plexus.PlexusJUnit4TestCase;
 import org.codehaus.plexus.util.FileUtils;
 import org.easymock.IAnswer;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // CHECKSTYLE_OFF: AvoidStarImport
 import static org.easymock.EasyMock.*;
-//CHECKSTYLE_ON: AvoidStarImport
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.junit.Assert.*;
+// CHECKSTYLE_ON: AvoidStarImport
 
 import java.io.File;
 import java.io.IOException;
@@ -53,7 +56,7 @@ import java.util.List;
  * @author <a href="mailto:jason@maven.org">Jason van Zyl</a>
  */
 public abstract class WagonTestCase
-    extends PlexusTestCase
+    extends PlexusJUnit4TestCase
 {
     protected static Logger logger = LoggerFactory.getLogger( WagonTestCase.class );
 
@@ -105,14 +108,15 @@ public abstract class WagonTestCase
     // Constructors
     // ----------------------------------------------------------------------
 
-    protected void setUp()
+    @Override
+    public void beforeTest()
         throws Exception
     {
         checksumObserver = new ChecksumObserver();
 
         mockTransferListener = createMock( TransferListener.class );
 
-        super.setUp();
+        super.beforeTest();
     }
 
     // ----------------------------------------------------------------------
@@ -235,6 +239,7 @@ public abstract class WagonTestCase
     //
     // ----------------------------------------------------------------------
 
+    @Test
     public void testWagon()
         throws Exception
     {
@@ -247,6 +252,7 @@ public abstract class WagonTestCase
         tearDownWagonTestingFixtures();
     }
 
+    @Test
     public void testWagonGetIfNewerIsNewer()
         throws Exception
     {
@@ -268,6 +274,7 @@ public abstract class WagonTestCase
     }
 
 
+    @Test
     public void testWagonGetIfNewerIsSame()
         throws Exception
     {
@@ -280,6 +287,7 @@ public abstract class WagonTestCase
         }
     }
 
+    @Test
     public void testWagonGetIfNewerIsOlder()
         throws Exception
     {
@@ -386,6 +394,7 @@ public abstract class WagonTestCase
         replay( mockTransferListener );
     }
 
+    @Test
     public void testWagonPutDirectory()
         throws Exception
     {
@@ -434,6 +443,7 @@ public abstract class WagonTestCase
      * @throws Exception
      * @since 1.0-beta-2
      */
+    @Test
     public void testWagonPutDirectoryDeepDestination()
         throws Exception
     {
@@ -481,6 +491,7 @@ public abstract class WagonTestCase
      * @throws Exception
      * @since 1.0-beta-1
      */
+    @Test
     public void testWagonPutDirectoryWhenDirectoryAlreadyExists()
         throws Exception
     {
@@ -536,6 +547,7 @@ public abstract class WagonTestCase
      * @throws Exception
      * @since 1.0-beta-1
      */
+    @Test
     public void testWagonPutDirectoryForDot()
         throws Exception
     {
@@ -643,6 +655,7 @@ public abstract class WagonTestCase
         FileUtils.fileWrite( dir.getAbsolutePath(), child );
     }
 
+    @Test
     public void testFailedGet()
         throws Exception
     {
@@ -682,6 +695,7 @@ public abstract class WagonTestCase
         }
     }
 
+    @Test
     public void testFailedGetIfNewer()
         throws Exception
     {
@@ -722,6 +736,7 @@ public abstract class WagonTestCase
      * @throws Exception
      * @since 1.0-beta-2
      */
+    @Test
     public void testWagonGetFileList()
         throws Exception
     {
@@ -776,6 +791,7 @@ public abstract class WagonTestCase
      * @throws Exception
      * @since 1.0-beta-2
      */
+    @Test
     public void testWagonGetFileListWhenDirectoryDoesNotExist()
         throws Exception
     {
@@ -812,6 +828,7 @@ public abstract class WagonTestCase
      * @throws Exception
      * @since 1.0-beta-2
      */
+    @Test
     public void testWagonResourceExists()
         throws Exception
     {
@@ -838,6 +855,7 @@ public abstract class WagonTestCase
      * @throws Exception
      * @since 1.0-beta-2
      */
+    @Test
     public void testWagonResourceNotExists()
         throws Exception
     {
@@ -1088,6 +1106,13 @@ public abstract class WagonTestCase
 
         return repository;
     }
+
+    protected String getName()
+    {
+        return testName.getMethodName();
+    }
+
+    @Rule public final TestName testName = new TestName();
 
     protected static String cksum( String content )
     {

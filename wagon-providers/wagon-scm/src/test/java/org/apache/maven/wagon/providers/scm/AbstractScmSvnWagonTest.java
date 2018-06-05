@@ -34,10 +34,11 @@ public abstract class AbstractScmSvnWagonTest
 {
     private String repository;
 
-    protected void setUp()
+    @Override
+    public void beforeTest()
         throws Exception
     {
-        super.setUp();
+        super.beforeTest();
 
         // copy the repo for the test
 

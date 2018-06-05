@@ -19,16 +19,19 @@ package org.apache.maven.wagon.providers.ssh.jsch;
  * under the License.
  */
 
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.maven.wagon.ConnectionException;
 import org.apache.maven.wagon.StreamingWagonTestCase;
 import org.apache.maven.wagon.authentication.AuthenticationException;
 import org.apache.maven.wagon.authentication.AuthenticationInfo;
 import org.apache.maven.wagon.providers.ssh.TestData;
 import org.apache.maven.wagon.repository.Repository;
 import org.apache.maven.wagon.resource.Resource;
+import org.junit.Test;
+
+// CHECKSTYLE_OFF: AvoidStarImport
+import static org.junit.Assert.*;
+
+// CHECKSTYLE_ON: AvoidStarImport
+import java.io.File;
 
 /**
  * @author <a href="michal.maczka@dimatics.com">Michal Maczka</a>
@@ -68,6 +71,7 @@ public class ScpWagonWithSshPrivateKeySearchTest
         return new File( repository.getBasedir(), resource.getName() ).lastModified();
     }
 
+    @Test
     public void testMissingPrivateKey()
         throws Exception
     {
@@ -88,6 +92,7 @@ public class ScpWagonWithSshPrivateKeySearchTest
         }
     }
 
+    @Test
     public void testBadPrivateKey()
         throws Exception
     {

@@ -23,7 +23,12 @@ import org.apache.maven.wagon.observers.ChecksumObserver;
 import org.apache.maven.wagon.resource.Resource;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
+import org.junit.Test;
 
+// CHECKSTYLE_OFF: AvoidStarImport
+import static org.junit.Assert.*;
+
+// CHECKSTYLE_ON: AvoidStarImport
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -37,6 +42,7 @@ import java.text.SimpleDateFormat;
 public abstract class StreamingWagonTestCase
     extends WagonTestCase
 {
+    @Test
     public void testStreamingWagon()
         throws Exception
     {
@@ -52,6 +58,7 @@ public abstract class StreamingWagonTestCase
         }
     }
 
+    @Test
     public void testFailedGetToStream()
         throws Exception
     {
@@ -98,6 +105,7 @@ public abstract class StreamingWagonTestCase
         }
     }
 
+    @Test
     public void testWagonGetIfNewerToStreamIsNewer()
         throws Exception
     {
@@ -113,6 +121,7 @@ public abstract class StreamingWagonTestCase
         }
     }
 
+    @Test
     public void testWagonGetIfNewerToStreamIsOlder()
         throws Exception
     {
@@ -126,6 +135,7 @@ public abstract class StreamingWagonTestCase
         }
     }
 
+    @Test
     public void testWagonGetIfNewerToStreamIsSame()
         throws Exception
     {
@@ -167,6 +177,7 @@ public abstract class StreamingWagonTestCase
         tearDownWagonTestingFixtures();
     }
 
+    @Test
     public void testFailedGetIfNewerToStream()
         throws Exception
     {

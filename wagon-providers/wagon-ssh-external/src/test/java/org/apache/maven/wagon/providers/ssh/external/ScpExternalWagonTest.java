@@ -25,7 +25,12 @@ import org.apache.maven.wagon.authentication.AuthenticationInfo;
 import org.apache.maven.wagon.providers.ssh.TestData;
 import org.apache.maven.wagon.repository.Repository;
 import org.apache.maven.wagon.resource.Resource;
+import org.junit.Test;
 
+// CHECKSTYLE_OFF: AvoidStarImport
+import static org.junit.Assert.*;
+
+// CHECKSTYLE_ON: AvoidStarImport
 import java.io.File;
 
 /**
@@ -87,6 +92,7 @@ public class ScpExternalWagonTest
         return authInfo;
     }
 
+    @Test
     public void testIsPuTTY()
         throws Exception
     {

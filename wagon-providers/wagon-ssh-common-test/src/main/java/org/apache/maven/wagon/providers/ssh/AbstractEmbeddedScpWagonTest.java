@@ -24,6 +24,10 @@ import org.apache.maven.wagon.authentication.AuthenticationInfo;
 import org.apache.maven.wagon.repository.Repository;
 import org.apache.maven.wagon.resource.Resource;
 
+// CHECKSTYLE_OFF: AvoidStarImport
+import static org.junit.Assert.*;
+// CHECKSTYLE_ON: AvoidStarImport
+
 import java.io.File;
 import java.util.Arrays;
 
@@ -38,10 +42,10 @@ public abstract class AbstractEmbeddedScpWagonTest
     SshServerEmbedded sshServer;
 
     @Override
-    protected void setUp()
+    public void beforeTest()
         throws Exception
     {
-        super.setUp();
+        super.beforeTest();
 
         String sshKeyResource = "ssh-keys/id_rsa";
 

@@ -25,7 +25,12 @@ import org.apache.maven.wagon.authentication.AuthenticationInfo;
 import org.apache.maven.wagon.repository.Repository;
 import org.apache.maven.wagon.resource.Resource;
 import org.codehaus.plexus.util.FileUtils;
+import org.junit.Test;
 
+// CHECKSTYLE_OFF: AvoidStarImport
+import static org.junit.Assert.*;
+
+// CHECKSTYLE_ON: AvoidStarImport
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
@@ -42,10 +47,10 @@ public abstract class AbstractEmbeddedScpWagonWithKeyTest
 
 
     @Override
-    protected void setUp()
+    public void beforeTest()
         throws Exception
     {
-        super.setUp();
+        super.beforeTest();
 
         String sshKeyResource = "ssh-keys/id_rsa.pub";
 
@@ -93,6 +98,7 @@ public abstract class AbstractEmbeddedScpWagonWithKeyTest
         return new File( repository.getBasedir(), resource.getName() ).lastModified();
     }
 
+    @Test
     public void testConnect()
         throws Exception
     {
@@ -107,6 +113,7 @@ public abstract class AbstractEmbeddedScpWagonWithKeyTest
         return false;
     }
 
+    @Test
     public void testWithSpaces()
         throws Exception
     {

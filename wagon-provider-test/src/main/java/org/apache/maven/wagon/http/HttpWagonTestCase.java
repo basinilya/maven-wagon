@@ -53,10 +53,12 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.security.Constraint;
 import org.eclipse.jetty.util.security.Password;
+import org.junit.Test;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+// CHECKSTYLE_OFF: AvoidStarImport
+import static org.junit.Assert.*;
+// CHECKSTYLE_ON: AvoidStarImport
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -75,6 +77,10 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.zip.GZIPOutputStream;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -152,6 +158,7 @@ public abstract class HttpWagonTestCase
         server.stop();
     }
 
+    @Test
     public void testWagonGetFileList()
         throws Exception
     {
@@ -164,6 +171,7 @@ public abstract class HttpWagonTestCase
         super.testWagonGetFileList();
     }
 
+    @Test
     public void testHttpHeaders()
         throws Exception
     {
@@ -195,6 +203,7 @@ public abstract class HttpWagonTestCase
     /**
      * test set of User-Agent as it's done by aether wagon connector with using setHttpHeaders
      */
+    @Test
     public void testHttpHeadersWithCommonMethods()
         throws Exception
     {
@@ -225,6 +234,7 @@ public abstract class HttpWagonTestCase
         assertEquals( "Maven-Wagon/1.0", handler.headers.get( "User-Agent" ) );
     }
 
+    @Test
     public void testUserAgentHeaderIsPresentByDefault()
         throws Exception
     {
@@ -243,6 +253,7 @@ public abstract class HttpWagonTestCase
                        handler.headers.get( "User-Agent" ) );
     }
 
+    @Test
     public void testUserAgentHeaderIsPresentOnlyOnceIfSetMultipleTimes()
         throws Exception
     {
@@ -289,6 +300,7 @@ public abstract class HttpWagonTestCase
         return getProtocol() + "://localhost:" + localPort;
     }
 
+    @Test
     public void testGetForbidden()
         throws Exception
     {
@@ -303,6 +315,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testGet404()
         throws Exception
     {
@@ -317,6 +330,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testList429()
         throws Exception
     {
@@ -384,6 +398,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testGet500()
         throws Exception
     {
@@ -425,6 +440,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testResourceExistsForbidden()
         throws Exception
     {
@@ -439,6 +455,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testResourceExists404()
         throws Exception
     {
@@ -452,6 +469,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testResourceExists500()
         throws Exception
     {
@@ -466,6 +484,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testResourceExists429()
         throws Exception
     {
@@ -557,6 +576,7 @@ public abstract class HttpWagonTestCase
         return getTestFile( "target/test-output/http-repository" );
     }
 
+    @Test
     public void testGzipGet()
         throws Exception
     {
@@ -605,6 +625,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testProxiedRequest()
         throws Exception
     {
@@ -614,6 +635,7 @@ public abstract class HttpWagonTestCase
         runTestProxiedRequest( proxyInfo, handler );
     }
 
+    @Test
     public void testProxiedRequestWithAuthentication()
         throws Exception
     {
@@ -639,6 +661,7 @@ public abstract class HttpWagonTestCase
 
     }
 
+    @Test
     public void testProxiedRequestWithAuthenticationWithProvider()
         throws Exception
     {
@@ -671,6 +694,7 @@ public abstract class HttpWagonTestCase
 
     }
 
+    @Test
     public void testRedirectGetToStream()
         throws Exception
     {
@@ -735,6 +759,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testRedirectGet()
         throws Exception
     {
@@ -798,6 +823,7 @@ public abstract class HttpWagonTestCase
     }
 
 
+    @Test
     public void testRedirectPutFromStreamWithFullUrl()
         throws Exception
     {
@@ -884,6 +910,7 @@ public abstract class HttpWagonTestCase
         checkHandlerResult( putHandler.handlerRequestResponses, HttpServletResponse.SC_CREATED );
     }
 
+    @Test
     public void testRedirectPutFromStreamRelativeUrl()
         throws Exception
     {
@@ -973,6 +1000,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testRedirectPutFileWithFullUrl()
         throws Exception
     {
@@ -1053,6 +1081,7 @@ public abstract class HttpWagonTestCase
     }
 
 
+    @Test
     public void testRedirectPutFileRelativeUrl()
         throws Exception
     {
@@ -1297,6 +1326,7 @@ public abstract class HttpWagonTestCase
         return proxyInfo;
     }
 
+    @Test
     public void testSecuredGetUnauthorized()
         throws Exception
     {
@@ -1311,6 +1341,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testSecuredGetWrongPassword()
         throws Exception
     {
@@ -1328,6 +1359,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testSecuredGet()
         throws Exception
     {
@@ -1393,6 +1425,7 @@ public abstract class HttpWagonTestCase
     }
 
 
+    @Test
     public void testSecuredGetToStream()
         throws Exception
     {
@@ -1452,6 +1485,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testSecuredResourceExistsUnauthorized()
         throws Exception
     {
@@ -1466,6 +1500,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testSecuredResourceExistsWrongPassword()
         throws Exception
     {
@@ -1482,6 +1517,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testSecuredResourceExists()
         throws Exception
     {
@@ -1582,6 +1618,7 @@ public abstract class HttpWagonTestCase
         return content;
     }
 
+    @Test
     public void testPutForbidden()
         throws Exception
     {
@@ -1596,6 +1633,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testPut404()
         throws Exception
     {
@@ -1610,6 +1648,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testPut500()
         throws Exception
     {
@@ -1624,6 +1663,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testPut429()
         throws Exception
     {
@@ -1719,6 +1759,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testSecuredPutUnauthorized()
         throws Exception
     {
@@ -1733,6 +1774,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testSecuredPutWrongPassword()
         throws Exception
     {
@@ -1750,6 +1792,7 @@ public abstract class HttpWagonTestCase
         }
     }
 
+    @Test
     public void testSecuredPut()
         throws Exception
     {
@@ -1816,6 +1859,7 @@ public abstract class HttpWagonTestCase
         testPreemptiveAuthenticationPut( sh, supportPreemptiveAuthenticationPut() );
     }
 
+    @Test
     public void testNonSecuredPutFromStream()
         throws Exception
     {
@@ -1825,6 +1869,7 @@ public abstract class HttpWagonTestCase
         runTestSecuredPutFromStream( authInfo, 1, false );
     }
 
+    @Test
     public void testSecuredPutFromStream()
         throws Exception
     {
